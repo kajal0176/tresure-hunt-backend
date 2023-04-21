@@ -21,7 +21,7 @@ const errorHandler = (err,req,res,next)=>{
      }
 
      if (err instanceof CustomErrorHandler) {
-         statusCode = err.status;
+         statusCode = 422;
          data = {
              status:0,
              message:err.msg
