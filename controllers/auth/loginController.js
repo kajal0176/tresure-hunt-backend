@@ -20,7 +20,7 @@ const loginController = {
 
         const {email,password} = req.body;
 
-        //check user is exit or not in database
+        //check user is exist or not in database
          try {
              const user = await auth.findOne({email})
 

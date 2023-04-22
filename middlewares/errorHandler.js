@@ -28,7 +28,7 @@ const errorHandler = (err,req,res,next)=>{
          }
      }
 
-     return res.json(data).status(statusCode);
+     return res.status(statusCode).json(data);
 }
 
 export default errorHandler

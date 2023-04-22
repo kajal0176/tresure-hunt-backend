@@ -3,7 +3,7 @@ import  jwt  from "jsonwebtoken";
 
 
 class JwtService{
-    static sign(payload,expiry='660s',secret=JWT_SECRET){
+    static sign(payload,expiry='6600000s',secret=JWT_SECRET){
         return jwt.sign(payload,secret,{expiresIn:expiry})
     }
     static verify(payload,secret=JWT_SECRET){
