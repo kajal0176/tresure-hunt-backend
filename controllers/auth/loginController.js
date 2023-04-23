@@ -1,6 +1,6 @@
 import CustomErrorHandler from "../../services/CustomErrorHandler.js";
 import Joi from "joi";
-import bcrypt from 'bcrypt';
+
 import auth from "../../models/auth.js";
 import JwtService from "../../services/JwtService.js";
 
@@ -29,8 +29,8 @@ const loginController = {
              }
 
              //comapre the password
-             const match = await bcrypt.compare(password,user.password);
-             if (!match) {
+           
+             if (password!=user.password) {
                 return next(CustomErrorHandler.wrongCrendential());
             }
 

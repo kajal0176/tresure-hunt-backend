@@ -1,5 +1,5 @@
 import Joi from "joi"
-import bcrypt from 'bcrypt';
+
 import auth from "../../models/auth.js";
 import CustomErrorHandler from "../../services/CustomErrorHandler.js";
 
@@ -34,13 +34,13 @@ const signupController = {
 
          //hashed the password
 
-         const hashedPassword = await bcrypt.hash(password,10);
+       
 
          //prepare the model
 
         const user = new auth({
             email,
-            password:hashedPassword
+            password
         })
 
         try {
