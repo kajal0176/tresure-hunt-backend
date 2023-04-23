@@ -35,7 +35,7 @@ const loginController = {
             }
 
             // genrate token
-            const access_token = JwtService.sign({email:user.email})
+            const access_token = JwtService.sign({email:user.email,id:user._id,role:user.role})
 
             res.json({status:1,message:'sucessfuly login',email:user.email,token:access_token})
 

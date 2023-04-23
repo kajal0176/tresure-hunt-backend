@@ -8,12 +8,13 @@ import authMid from '../middlewares/authMid.js';
 
 const router = express.Router();
 
- router.post('/signup',signupController.signup)
- router.post('/login',loginController.login)
- router.get('/registerdUser',authMid,userInfoController.userRegisterdGet)
- router.get('/userInfo',authMid,userInfoController.userInfoGet)
- router.get('/userInfo/:_id',authMid,userInfoController.userInfoGetById)
- router.post('/userInfo',authMid,userInfoController.userInfoCreate)
- router.put('/userInfo',authMid,userInfoController.userInfoUpdate)
+
+router.post('/signup',signupController.signup)
+router.post('/login',loginController.login)
+router.get('/registerdUser',authMid,userInfoController.userRegisterdGet)
+router.get('/userInfo',authMid,userInfoController.userInfoGet)
+router.get('/userInfo/:_id',authMid,userInfoController.userInfoGetById)
+router.post('/userInfo',authMid,userInfoController.userInfoCreate)
+router.put('/userInfo',authMid,userInfoController.userInfoUpdate)
 
 export default router

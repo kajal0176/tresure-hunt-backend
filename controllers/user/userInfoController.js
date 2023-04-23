@@ -8,23 +8,16 @@ import auth from "../../models/auth.js";
 
 const userInfoController = {
     async userInfoCreate(req,res,next){
-       console.log(req.body)
-       const {email,
-            avgTime,
-            deadCounts,
-            acc,
-            softSkills} = req.body;
+      // console.log(req.body)
+       const {email,userInfo} = req.body;
 
-       const userInfo = new user({
+       const userInfoData = new user({
             email,
-            avgTime,
-            deadCounts,
-            acc,
-            softSkills
-        })
+            userInfo
+           })
 
     try {
-        const result = await userInfo.save();
+        const result = await userInfoData.save();
         res.json({result})
     } catch (err) {
         return next(err)
@@ -44,9 +37,15 @@ const userInfoController = {
     async userInfoGetById(req,res,next){
      
         try {
-            // console.log(req.params)
-            const candidate = await user.findById(req.params._id)
-            res.json(candidate)
+             console.log(req.params)
+             const __user = await auth.findById(req.params._id)
+             console.log(__user)
+            if (__user._id) {
+                const __userInfo = await user.findOne({email:__user.email})
+                console.log(__userInfo)
+                res.json(__userInfo)
+            }
+          
         } catch (error) {
             return next(error)
         }
@@ -65,28 +64,26 @@ const userInfoController = {
     },
     async userInfoUpdate(req,res,next){
        
-        const {
-             _id,
-             email,
-             avgTime,
-             deadCounts,
-             acc,
-             softSkills} = req.body;
- 
-        const userInfo = new user({
-
-             email,
-             avgTime,
-             deadCounts,
-             acc,
-             softSkills
-         })
- 
-         try {
-            const updateUserInfo = await userInfo.findOneAndUpdate({email:req.user.email},candidate, {
-               new: true
-             });
-            res.json({sucess:1,message:"sucessfully updated"})
+        const {email,userInfo} = req.body;
+        
+         try {          
+            if (req.body.userClueInfo) {
+                const updateUserInfo = await user.findOneAndUpdate({email:email}, 
+                    {$set:{userInfo:userInfo},$push: { userClueInfo:req.body.userClueInfo } },
+                    {          
+                      new: true
+                    });
+                   
+                   res.json({updateUserInfo})
+            }else{
+                const updateUserInfo = await user.findOneAndUpdate({email:email}, 
+                    {userInfo:userInfo},
+                    {          
+                      new: true
+                    });
+                   
+                   res.json({updateUserInfo})
+            }
          } catch (err) {
                 return next(err)
             }
